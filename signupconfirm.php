@@ -15,7 +15,7 @@ $dob=$_REQUEST["in_dob"];
 $eml=$_REQUEST["in_eml"];
 $mob=$_REQUEST["in_mob"];
 
-$con=mysqli_connect("localhost","root","","oas");
+$con=mysqli_connect("localhost","root","","examination_system");
 if(!isset($con))
 {
     die("Database Not Found");
@@ -57,7 +57,7 @@ if(isset($_REQUEST["in_sub"]))
 }
   function StudentCode()
   {
-      $con = mysqli_connect("localhost", "root", "", "oas");
+      $con = mysqli_connect("localhost", "root", "", "examination_system");
       $rs  = mysqli_query($con,"select CONCAT('CUTM',LPAD(RIGHT(ifnull(max(s_id),'CUTM00000'),5) + 1,5,'0')) from t_user_data");
       return mysqli_fetch_array($rs)[0];
   }
@@ -117,7 +117,7 @@ if(isset($_REQUEST["in_sub"]))
     </head>
     
     
-    <body style="background-image:url('./images/inbg.jpg');">
+    <body style="background-image: linear-gradient(to right, #36486b , #f18973);">
         <form id="signupconfirm" action="signupconfirm.php" method="post">
   
             <div id="dvlogin" style="box-shadow: 0px 5px 10px #999999">
@@ -127,9 +127,10 @@ if(isset($_REQUEST["in_sub"]))
             </div>
                     
             <div class="container-fluid">    
-                <div class="row">
+                <div style="border-style: solid; background-image: linear-gradient(to right, #034f84 , #4040a1);" class="row">
                   <div class="col-sm-12">
-                        <img src="images/cutm.jpg" width="100%" style="box-shadow: 1px 5px 14px #999999; "></img>
+                        <h1 style="color:#fefbd8; text-align:center; font-size:50px;"><b>EXAMINATION SYSTEM</b></h1>
+                        <!-- <img src="images/cutm.jpg" width="100%" style="box-shadow: 1px 5px 14px #999999; "></img> -->
                   </div>
                  </div>    
              </div>
@@ -139,19 +140,20 @@ if(isset($_REQUEST["in_sub"]))
         <div id="ddown">
             <br><br><br>
             <div id="dleft">
-                
-            <img src="images/signup1.jpg" style="height:470px;width:550px;border-top-left-radius:15px;border-bottom-left-radius:15px;" ></img>
+            <img src="https://yetisharetemplates.com/wp-content/uploads/2021/06/preview-xl-7.jpg" style="height:470px;width:550px;border-top-left-radius:15px;border-bottom-left-radius:15px;" ></img>   
+            <!-- <img src="images/signup1.jpg" style="height:470px;width:550px;border-top-left-radius:15px;border-bottom-left-radius:15px;" ></img> -->
             </div>
-             <div id="drig">
+             <div id="drig" style="background-image: linear-gradient(to right, #e06377 , #b8a9c9)";>
                  <br><br><br><br><br>
-                 <center><font style="color: #3399ff; margin-left:30px; font-family: Verdana;font-size:20px;">
+                 <center><font style="color: ; margin-left:30px; font-family: Verdana;">
                      <?php  //require_once("mail-content.php");  ?>
                      
-                      <?php echo "Your User ID is $stid and Password is $stpw" ; ?><br>
-                    You are successfully registered. Please check your email ID or Phone for User ID and Password. </font></center>
+                     <p style="font-size:26px;"> <?php echo "Your User ID is $stid and Password is $stpw" ; ?></p><br>
+                    <p style="font-size:20px;">You are successfully registered. Please check your email ID or Phone for User ID and Password.</p> </font>
+                 </center>
                  <br><br>
             
-                 <input type="submit" id="u_sub" name="u_sub" value="Login" class="toggle btn btn-primary" style="width:100px; margin-left: 200px;"><br><br>
+                 <input type="submit" id="u_sub" name="u_sub" value="Login" class="toggle btn btn-primary" style="width:100px; margin:0px 0px 100px 0px;"><br><br>
              </div>
         </div>
         

@@ -120,7 +120,7 @@ error_reporting(0);
     </head>
     
     
-    <body style="background-image:url('./images/inbg.jpg');">
+    <body style="background-image: linear-gradient(to right, #36486b , #f18973);">
         <form id="signup" action="signupconfirm.php" method="post">
   
             <div id="dvlogin" style="box-shadow: 0px 5px 10px #999999">
@@ -130,9 +130,11 @@ error_reporting(0);
             </div>
                     
             <div class="container-fluid">    
-                <div class="row">
-                  <div class="col-sm-12">
-                        <img src="images/cutm.jpg" width="100%" style="box-shadow: 1px 5px 14px #999999; "></img>
+                <div style="border-style: solid; background-image: linear-gradient(to right, #034f84 , #4040a1);" class="row">
+                  <div class="mainh col-sm-12">
+                      <h1 style="color:#fefbd8; text-align:center; font-size:50px;"><b>EXAMINATION SYSTEM</b></h1>
+                        <!-- <img src="images/cut.jpg" width="100%" style="box-shadow: 1px 5px 14px #999999; "></img> -->
+                        
                   </div>
                  </div>    
              </div>
@@ -141,18 +143,18 @@ error_reporting(0);
         </div>
         <div id="ddown">
             <br><br><br>
-            <div id="dleft">
+             <div id="dleft">
                 <input type="hidden" id="stid" name="stid" value="">
                 <input type="hidden" id="stpw" name="stpw" value="">
-            <img src="images/signup1.jpg" style="height:470px;width:550px;border-top-left-radius:15px;border-bottom-left-radius:15px;" ></img>
-            </div>
-             <div id="drig">
+                <img src="https://yetisharetemplates.com/wp-content/uploads/2021/06/preview-xl-7.jpg" style="height:470px;width:550px;border-top-left-radius:15px;border-bottom-left-radius:15px;" ></img>
+               </div>
+             <div id="drig" style="background-image: linear-gradient(to right, #e06377 , #b8a9c9)";>
                  <br>
-            <font style="color:black; margin-left:30px; font-size:22px; font-family: verdana;font-weight: bold;">Sign Up Here</font>
+                  <font style="color:#000066; margin-left:30px; font-size:24px; font-family:verdana; font-weight: bold;"><b>SIGN UP HERE</b></font>
                     <table id="tabintro">
                 <tr>
                     <td>
-                        <font style="color:black; margin-left:30px; font-family: Verdana;  margin-top:15px; font-size:17px;">Name * </font>
+                        <font style="color:#000066; margin-left:30px; font-family: Verdana;  margin-top:15px; font-size:17px;"><b>NAME </b></font>
                     </td>
                 </tr>
                 <tr>
@@ -162,7 +164,7 @@ error_reporting(0);
                 </tr>
                 <tr>
                     <td>
-                        <font style="color:black; margin-left:30px; font-family: Verdana;font-size:17px;">Date of Birth * <font>
+                        <font style="color:#000066; margin-left:30px; font-family: Verdana;font-size:17px;"><b>DATE OF BIRTH </b></font>
                     </td>
                 </tr>
                 <tr>
@@ -177,7 +179,7 @@ error_reporting(0);
                 </tr>
                  <tr>
                     <td>
-                       <font style="color:black; margin-left:30px; font-family: Verdana;font-size:17px;" required> Email ID <font>
+                       <font style="color:#000066; margin-left:30px; font-family: Verdana;font-size:17px;" required><b> EMAIL ID </b><font>
                     </td>
                  </tr>
                  <tr>
@@ -188,7 +190,7 @@ error_reporting(0);
                 
                 <tr>
                     <td>
-                       <font style="color:black; margin-left:30px; font-family: Verdana;font-size:17px;" required> Mobile No. *<font>
+                       <font style="color:#000066; margin-left:30px; font-family: Verdana;font-size:17px;" required><b> MOBILE NO.</b><font>
                     </td>
                  </tr>
                  <tr>
@@ -214,9 +216,9 @@ error_reporting(0);
                 <tr>
                     <td> 
                        
-                           <input type="submit" id="in_sub" name="in_sub" onclick="validate();"  value="SIGN UP"  style="margin-top: 8px;margin-left:90px;" class="toggle btn btn-primary">
+                           <input type="submit" id="in_sub" name="in_sub" onclick="validate();"  value="SIGN UP"  style="margin-top: 8px;margin-left:90px; " class="toggle btn btn-primary">
                             
-                             <a href="index.php">Login </a>
+                             <a href="index.php"><b>LOGIN </b></a>
                     </td>
                     
                 </tr>
