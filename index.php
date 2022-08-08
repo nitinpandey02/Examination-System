@@ -1,109 +1,99 @@
-<?php
-session_start();
+<?php 
+include_once 'config/Database.php';
+include_once 'class/User.php';
 
-$con=mysqli_connect("localhost","root","","examination_system");
-if(!isset($con))
-{
-    die("Database Not Found");
+$database = new Database();
+$db = $database->getConnection();
+
+$user = new User($db);
+
+if($user->loggedIn()) {	
+	if(!empty($_SESSION["role"]) && $_SESSION["role"] == 'admin') {
+		header("Location: exam.php");	
+	} else if (!empty($_SESSION["role"]) && $_SESSION["role"] == 'user'){
+		header("Location: view_exam.php");	
+	}
 }
 
-
-if(isset($_REQUEST["u_sub"]))
-{
-    
- $id=$_POST['u_id'];
- $pwd=$_POST['u_ps'];
- if($id!=''&&$pwd!='')
- {
-   $query=mysqli_query($con ,"select * from t_user_data where s_id='".$id."' and s_pwd='".$pwd."'");
-   $res=mysqli_fetch_row($query);
-   $query1=mysqli_query($con ,"select * from t_user where s_id='".$id."'");
-   $res1=mysqli_fetch_row($query1);
-
-   if($res)
-   {
-    $_SESSION['user']=$id;
-    header('location:admsnform.php');
-   }
-   else
-   {
-    
-    echo '<script>';
-    echo 'alert("Invalid username or password")';
-    echo '</script>';
-   }
-   
-   if($res1)
-   {
-    $_SESSION['user']=$id;
-    header('location:homepageuser.php');
-   }
-   else
-   {
-    
-    echo '<script>';
-    echo 'alert("Invalid username or password")';
-    echo '</script>';
-   }
-  }
- else
- {
-     echo '<script>';
-    echo 'alert("Enter both username and password")';
-    echo '</script>';
- 
- }
+$loginMessage = '';
+if(!empty($_POST["login"]) && !empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["loginType"]) && $_POST["loginType"]) {	
+	$user->email = $_POST["email"];
+	$user->password = $_POST["password"];	
+	$user->loginType = $_POST["loginType"];
+	if($user->login()) {
+		if($_SESSION["role"] == 'admin') {
+			header("Location: exam.php");	
+		} else if ($_SESSION["role"] == 'user'){
+			header("Location: view_exam.php");	
+		}		
+	} else {
+		$loginMessage = 'Invalid login! Please try again.';
+	}
+} else if (empty($_POST["login"]) || empty($_POST["email"]) || empty($_POST["password"])|| empty($_POST["loginType"])){
+	$loginMessage = 'Enter email, pasword and select user type to login.';
 }
+include('inc/header.php');
 ?>
-
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link type="text/css" rel="stylesheet" href="css/login.css"></link>
-        <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="bootstrap/bootstrap-theme.min.css">
-        <script src="bootstrap/jquery.min.js"></script>
-        <script src="bootstrap/bootstrap.min.js"></script>
-
-       
-        <title></title>
-        
-        
-        
-    </head>
-    <body  style="background-image: linear-gradient(to right, #36486b , #f18973);" >
-        <form id="index" action="index.php" method="post">
-            
-            <div class="container-fluid">    
-                <div style="border-style: solid; background-image: linear-gradient(to right, #034f84 , #4040a1);" class="row">
-                  <div class="col-sm-12">
-                        <h1 style="color:#fefbd8; text-align:center; font-size:50px;"><b>EXAMINATION SYSTEM</b></h1>
-                        <!-- <img src="images/cutm.jpg" width="100%" style="box-shadow: 1px 5px 14px #999999; "></img> -->
-                  </div>
-                </div>    
-             
-        
-            
-            
-                <div  id="divtop1" style="margin:0px 0px 0px 160px;">
-                    
-                        <br> <br> <br> <br> <br> <br>
-                            <div id="dmain" style="background-image: linear-gradient(to right, #e06377 , #b8a9c9);" > 
-                                <!-- <img src="./images/loginuser.png" width="120px" height="100px" ></img> -->
-                               
-                                  <center style="background-image: linear-gradient(to right, #ff7b25 , #d64161);"><h1><b style="">LOGIN</b></h1></center>                             
-                                
-                                <br>
-                                    <input type="text" id="u_id" name="u_id" class="form-control" style="width:300px; margin-left: 76px;" placeholder="Enter Your User ID"><br>
-                                    <input type="password" id="u_ps" name="u_ps" class="form-control" style="width:300px; margin-left: 76px;" placeholder="Enter Your Password"><br>
-                                    <input type="submit" id="u_sub" name="u_sub" value="LOGIN" class="toggle btn btn-primary" style="width:100px; margin-left: 170px; font-weight: bold;"><br>
-                                    <a href="signup.php" style="margin-left: 190px; color:#4040a1;"><b>SIGN UP</b> </a>
-                            </div>
-                     </div>
+<title>Online Exam System with PHP & MySQL</title>
+<?php include('inc/container.php');?>
+<div class="content" style="text-align:center;">
+    <div class="container-fluid">
+        <h2><b style="color:#29293d; font-size: 60px;">Examination System</b></h2>
+		<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+		<div class="col-md-3 d-flex justify-content-center text-center"></div>
+        <div class="col-md-6 d-flex justify-content-center text-center">
+            <div class="panel panel-info">
+                <div class="panel-heading" style="background:#167ce6ba;color:white;">
+                    <div class="panel-title"><b>Log In</b></div>
+                </div>
+                <div style="padding-top:30px; background-color: #e0e2e4;" class="panel-body">
+                    <?php if ($loginMessage != '') { ?>
+                    <div id="login-alert" class="alert alert-danger col-sm-12">
+                        <?php echo $loginMessage; ?>
                     </div>
-               </div>
-            </div>  
+                    <?php } ?>
+                    <form id="loginform" class="form-horizontal" role="form" method="POST" action="">
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" class="form-control" id="email" name="email"
+                                value="<?php if(!empty($_POST[" email"])) { echo $_POST["email"]; } ?>"
+                            placeholder="email" style="background:white;" required>
+                        </div>
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password"
+                                value="<?php if(!empty($_POST[" password"])) { echo $_POST["password"]; } ?>"
+                            placeholder="password" required>
+                        </div>
+                        <label class="radio-inline"><strong>User Type:</strong></label>
+                        <label class="radio-inline">
+                            <input type="radio" name="loginType" value="admin">Administrator
+                        </label>
+
+                        <label class="radio-inline">
+                            <input type="radio" name="loginType" value="user">User
+                        </label>
+
+                        <div style="margin-top:10px" class="form-group">
+                            <div class="col-sm-12 controls">
+                                <input type="submit" name="login" value="Login" class="btn btn-info">
+                            </div>
+                        </div>
+                    </form>
+                    <!-- <p>
+				            Admin Login<br>
+				      Email: admin@webdamn.com<br>
+				    Password: 123				
+				    </p>
+				    <p>
+				    User Login<br>
+				    Email: user2@test.com<br>
+				    Password: 123
+				    </p> -->
+                </div>
             </div>
-        </form>  
-       </body>
-</html>
+        </div>
+		<!-- <div class="col-3 d-flex justify-content-center text-center"></div> -->
+    </div>        
+</div>		
+<?php include('inc/footer.php');?>
